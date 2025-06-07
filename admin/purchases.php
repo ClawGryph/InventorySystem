@@ -25,14 +25,14 @@
                 <tr>
                     <?php
                         include "../db.php";
-                        $sql = "SELECT name, SUM(stock) OVER (PARTITION BY name) AS 'total_stock', price, dateAdded FROM purchaseditem;";
+                        $sql = "SELECT purchased_name, SUM(stock) OVER (PARTITION BY name) AS 'total_stock', price, dateAdded FROM purchaseditem;";
                         $result = $conn->query($sql);
                         $no = 1;
                         if ($result && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td>" . $no++ . "</td>";
-                                echo "<td>" . htmlspecialchars(ucfirst($row['name'])) . "</td>";
+                                echo "<td>" . htmlspecialchars(ucfirst($row['purchased_name'])) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['total_stock']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['price']) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['dateAdded']) . "</td>";
