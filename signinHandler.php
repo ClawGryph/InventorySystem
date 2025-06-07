@@ -18,10 +18,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Use password_verify() to check the password
         if($inputPassword === "admin"){
             $_SESSION["user"] = $username;
+
+            // Update last_login for admin
+            $updateSql = "UPDATE users SET lastLogin = NOW() WHERE username = ?";
+            $updateStmt = $conn->prepare($updateSql);
+            $updateStmt->bind_param("s", $username);
+            $updateStmt->execute();
+
+            // Redirect to the admin landing page
             header("Location: ./admin/adminLandingPage.php");
             exit();
         }else if (password_verify($inputPassword, $storedHash)) {
             $_SESSION["user"] = $username;
+
+            // Update last_login for regular user
+            $updateSql = "UPDATE users SET lastLogin = NOW() WHERE username = ?";
+            $updateStmt = $conn->prepare($updateSql);
+            $updateStmt->bind_param("s", $username);
+            $updateStmt->execute();
+
+            // Redirect to the landing page for regular users
             header("Location: landingPage.php");
             exit();
         }

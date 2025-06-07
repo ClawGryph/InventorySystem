@@ -8,26 +8,40 @@
 <body>
     <div>
         <h2>User Management</h2>
-        <button id="addUserButton">Add User</button>
+        <button id="addUserPage" style="opacity: 1;">Add User</button>
         <table id="userManagementTable" style="opacity: 1;">
             <thead>
                 <tr>
                     <th>No.</th>
                     <th>Username</th>
                     <th>Role</th>
-                    <th>Action</th>
+                    <th>Last Login</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <!-- User Management Body -->
             <tbody id="userManagementBody">
                 <tr>
-                    <td>1</td>
-                    <td>john_doe</td>
-                    <td>Admin</td>
-                    <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
-                    </td>
+                    <?php
+                        include "../db.php";
+                        $sql = "SELECT userID, username, role, lastLogin FROM users";
+                        $result = $conn->query($sql);
+                        $no = 1;
+                        if ($result && $result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . $no++ . "</td>";
+                                echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+                                echo "<td>" . htmlspecialchars(ucfirst($row['role'])) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['lastLogin']) . "</td>";
+                                echo "<td>
+                                        <button>Edit</button>
+                                        <button>Delete</button>
+                                    </td>";
+                                echo "</tr>";
+                            }
+                        }
+                    ?>
                 </tr>
             </tbody>
         </table>
@@ -35,22 +49,27 @@
         <!-- Add User Modal -->
         <div id="addUserModal" style="opacity: 0;">
             <h3>Add User</h3>
-            <form id="addUserForm">
+            <form id="addUserForm" action="addUserHandler.php" method="POST">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="text" id="username" name="username" required>   
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>             
                 <label for="role">Role:</label>
                 <select id="role" name="role">
                     <option value="admin">Admin</option>
                     <option value="user">User</option>
                 </select>
-                <button type="submit">Add User</button>
+                <button type="submit" id="addUserButton">Add User</button>
             </form>
         </div>
     </div>
 </body>
 <script>
+document.getElementById('addUserPage').addEventListener('click', function() {
+    document.getElementById('addUserModal').style.opacity = '1';
+    document.getElementById('userManagementTable').style.opacity = '0';
+    document.getElementById('addUserPage').style.opacity = '0';
+});
 document.getElementById('addUserButton').addEventListener('click', function() {
     document.getElementById('addUserModal').style.opacity = '1';
     document.getElementById('userManagementTable').style.opacity = '0';
