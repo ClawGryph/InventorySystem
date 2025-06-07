@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchases</title>
+</head>
+<body>
+    <div>
+        <h2>Purchases</h2>
+        <button id="newPurchaseForm" style="opacity: 1;">Add new purchase</button>
+        <table id="purchaseTable" style="opacity: 1;">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>In-Stock</th>
+                    <th>Buying Price</th>
+                    <th>Product Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <!-- Purchasement Body -->
+            <tbody id="purchaseBody">
+                <tr>
+                    <?php
+                        include "../db.php";
+                        $sql = "SELECT name, SUM(stock) OVER (PARTITION BY name) AS 'total_stock', price, dateAdded FROM purchaseditem;";
+                        $result = $conn->query($sql);
+                        $no = 1;
+                        if ($result && $result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . $no++ . "</td>";
+                                echo "<td>" . htmlspecialchars(ucfirst($row['name'])) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['total_stock']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['price']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['dateAdded']) . "</td>";
+                                echo "<td>
+                                        <button>Edit</button>
+                                        <button>Delete</button>
+                                    </td>";
+                                echo "</tr>";
+                            }
+                        }
+                    ?>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Add User Modal -->
+        <div id="purchaseModal" style="opacity: 0;">
+            <h3>Add Purchase Item</h3>
+            <form id="addPurchaseForm" action="addPurchasedItemHandler.php" method="POST">
+                <label for="name">Item Name:</label>
+                <input type="text" id="name" name="name" required>   
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" required>             
+                <label for="purchase_price">Purchase Price:</label>
+                <input type="number" id="purchase_price" name="purchase_price" required>
+                
+                <button type="submit" id="addNewPurchase">Add Purchase</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById('newPurchaseForm').addEventListener('click', function() {
+        document.getElementById('purchaseModal').style.opacity = 1;
+        document.getElementById('purchaseTable').style.opacity = 0;
+        document.getElementById('newPurchaseForm').style.opacity = 0;
+    });
+
+    document.getElementById('addNewPurchase').addEventListener('click', function(event) {
+        document.getElementById('purchaseModal').style.opacity = 0;
+        document.getElementById('purchaseTable').style.opacity = 1;
+    });
+</script>
+</html>
