@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Sign in</h1>
-    <form method="POST">
+    <form action="signinHandler.php" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
 
