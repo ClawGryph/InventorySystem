@@ -13,7 +13,7 @@
         }
 
         // Prepare and execute the SQL statement
-        $sql = "INSERT INTO purchaseditem (name, stock, price, dateAdded) VALUES (?, ?, ?, NOW())";
+        $sql = "INSERT INTO purchaseditem (purchased_name, stock, price, dateAdded) VALUES (?, ?, ?, NOW())";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sid", $name, $quantity, $purchase_price);
 

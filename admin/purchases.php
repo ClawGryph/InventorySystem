@@ -25,7 +25,7 @@
                 <tr>
                     <?php
                         include "../db.php";
-                        $sql = "SELECT purchased_name, SUM(stock) OVER (PARTITION BY name) AS 'total_stock', price, dateAdded FROM purchaseditem;";
+                        $sql = "SELECT purchased_name, SUM(stock) OVER (PARTITION BY purchased_name) AS 'total_stock', price, dateAdded FROM purchaseditem;";
                         $result = $conn->query($sql);
                         $no = 1;
                         if ($result && $result->num_rows > 0) {
