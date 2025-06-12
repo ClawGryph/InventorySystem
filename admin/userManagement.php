@@ -22,29 +22,27 @@
             </thead>
             <!-- User Management Body -->
             <tbody id="userManagementBody">
-                <tr>
-                    <?php
-                        include "../db.php";
-                        $sql = "SELECT fullname, username, role, lastLogin FROM users";
-                        $result = $conn->query($sql);
-                        $no = 1;
-                        if ($result && $result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $no++ . "</td>";
-                                echo "<td>" . htmlspecialchars(ucfirst($row['fullname'])) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['username']) . "</td>";
-                                echo "<td>" . htmlspecialchars(ucfirst($row['role'])) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['lastLogin']) . "</td>";
-                                echo "<td>
-                                        <button>Edit</button>
-                                        <button>Delete</button>
-                                    </td>";
-                                echo "</tr>";
-                            }
+                <?php
+                    include "../db.php";
+                    $sql = "SELECT fullname, username, role, lastLogin FROM users";
+                    $result = $conn->query($sql);
+                    $no = 1;
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr data-username='" . htmlspecialchars($row['username'], ENT_QUOTES) . "'>";
+                            echo "<td>" . $no++ . "</td>";
+                            echo "<td>" . htmlspecialchars(ucfirst($row['fullname'])) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+                            echo "<td>" . htmlspecialchars(ucfirst($row['role'])) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['lastLogin']) . "</td>";
+                            echo "<td>
+                                    <button type='button' class='editBtn'>Edit</button>
+                                    <button type='button' class='deleteBtn'>Delete</button>
+                                </td>";
+                            echo "</tr>";
                         }
-                    ?>
-                </tr>
+                    }
+                ?>
             </tbody>
         </table>
 
@@ -69,4 +67,5 @@
     </div>
 </body>
 <script src="changeView.js"></script>
+<script src="editUser.js"></script>
 </html>
