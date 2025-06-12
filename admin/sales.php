@@ -82,15 +82,5 @@
         </div>
     </div>
 </body>
-<script>
-    document.getElementById('addNewSales').addEventListener('click', function() {
-        document.getElementById('addSalesModal').style.opacity = '1';
-        document.getElementById('salesTable').style.opacity = '0';
-        document.getElementById('addNewSales').style.opacity = '0';
-    });
-    document.getElementById('addNewSalesButton').addEventListener('click', function() {
-        document.getElementById('addSalesModal').style.opacity = '0';
-        document.getElementById('salesTable').style.opacity = '1';
-    });
-</script>
+<script src="changeView.js"></script>
 </html>

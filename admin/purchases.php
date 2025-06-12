@@ -64,16 +64,5 @@
         </div>
     </div>
 </body>
-<script>
-    document.getElementById('newPurchaseForm').addEventListener('click', function() {
-        document.getElementById('purchaseModal').style.opacity = 1;
-        document.getElementById('purchaseTable').style.opacity = 0;
-        document.getElementById('newPurchaseForm').style.opacity = 0;
-    });
-
-    document.getElementById('addNewPurchase').addEventListener('click', function(event) {
-        document.getElementById('purchaseModal').style.opacity = 0;
-        document.getElementById('purchaseTable').style.opacity = 1;
-    });
-</script>
+<script src="changeView.js"></script>
 </html>

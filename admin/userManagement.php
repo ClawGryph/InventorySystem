@@ -13,6 +13,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>Name</th>
                     <th>Username</th>
                     <th>Role</th>
                     <th>Last Login</th>
@@ -24,13 +25,14 @@
                 <tr>
                     <?php
                         include "../db.php";
-                        $sql = "SELECT userID, username, role, lastLogin FROM users";
+                        $sql = "SELECT fullname, username, role, lastLogin FROM users";
                         $result = $conn->query($sql);
                         $no = 1;
                         if ($result && $result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td>" . $no++ . "</td>";
+                                echo "<td>" . htmlspecialchars(ucfirst($row['fullname'])) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['username']) . "</td>";
                                 echo "<td>" . htmlspecialchars(ucfirst($row['role'])) . "</td>";
                                 echo "<td>" . htmlspecialchars($row['lastLogin']) . "</td>";
@@ -50,6 +52,8 @@
         <div id="addUserModal" style="opacity: 0;">
             <h3>Add User</h3>
             <form id="addUserForm" action="addUserHandler.php" method="POST">
+                <label for="fullname">Name:</label>
+                <input type="text" id="fullname" name="fullname" required>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>   
                 <label for="password">Password:</label>
@@ -64,15 +68,5 @@
         </div>
     </div>
 </body>
-<script>
-document.getElementById('addUserPage').addEventListener('click', function() {
-    document.getElementById('addUserModal').style.opacity = '1';
-    document.getElementById('userManagementTable').style.opacity = '0';
-    document.getElementById('addUserPage').style.opacity = '0';
-});
-document.getElementById('addUserButton').addEventListener('click', function() {
-    document.getElementById('addUserModal').style.opacity = '1';
-    document.getElementById('userManagementTable').style.opacity = '0';
-});
-</script>
+<script src="changeView.js"></script>
 </html>
