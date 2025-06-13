@@ -1,5 +1,4 @@
 <?php
-file_put_contents('debug_edit.txt', print_r($_POST, true));
 include "../db.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $old_username = trim($_POST["old_username"]);

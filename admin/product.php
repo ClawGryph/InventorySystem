@@ -38,29 +38,27 @@
             </thead>
             <!-- User Management Body -->
             <tbody id="productBody">
-                <tr>
-                    <?php
-                        include "../db.php";
-                        $sql = "SELECT product_name, buying_price, selling_price, dateproductadded FROM products";
-                        $result = $conn->query($sql);
-                        $no = 1;
-                        if ($result && $result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $no++ . "</td>";
-                                echo "<td>" . htmlspecialchars($row['product_name']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['buying_price']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['selling_price']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['dateproductadded']) . "</td>";
-                                echo "<td>
-                                        <button>Edit</button>
-                                        <button>Delete</button>
-                                    </td>";
-                                echo "</tr>";
-                            }
+                <?php
+                    include "../db.php";
+                    $sql = "SELECT productID, product_name, buying_price, selling_price, dateproductadded FROM products";
+                    $result = $conn->query($sql);
+                    $no = 1;
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr data-product-id='" . htmlspecialchars($row['productID'], ENT_QUOTES) . "'>";
+                            echo "<td>" . $no++ . "</td>";
+                            echo "<td>" . htmlspecialchars($row['product_name']) . "</td>"; //1
+                            echo "<td>" . htmlspecialchars($row['buying_price']) . "</td>"; //2
+                            echo "<td>" . htmlspecialchars($row['selling_price']) . "</td>"; //3
+                            echo "<td>" . htmlspecialchars($row['dateproductadded']) . "</td>";
+                            echo "<td>
+                                    <button type='button' class='editBtn'>Edit</button>
+                                    <button type='button' class='deleteBtn'>Delete</button>
+                                </td>";
+                            echo "</tr>";
                         }
-                    ?>
-                </tr>
+                    }
+                ?>
             </tbody>
         </table>
 
@@ -90,6 +88,7 @@
         </div>
     </div>
 </body>
+<script src="editProducts.js"></script>
 <script>
 var purchasePrices = <?php echo json_encode(array_column($purchaseItems, 'price', 'itemID')); ?>;
 
