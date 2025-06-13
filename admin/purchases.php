@@ -8,8 +8,8 @@
 <body>
     <div>
         <h2>Purchases</h2>
-        <button id="newPurchaseForm" style="opacity: 1;">Add new purchase</button>
-        <table id="purchaseTable" style="opacity: 1;">
+        <button id="addPurchasePage">Add new purchase</button>
+        <table id="purchaseTable">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -22,29 +22,27 @@
             </thead>
             <!-- Purchasement Body -->
             <tbody id="purchaseBody">
-                <tr>
-                    <?php
-                        include "../db.php";
-                        $sql = "SELECT purchased_name, SUM(stock) OVER (PARTITION BY purchased_name) AS 'total_stock', price, dateAdded FROM purchaseditem;";
-                        $result = $conn->query($sql);
-                        $no = 1;
-                        if ($result && $result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $no++ . "</td>";
-                                echo "<td>" . htmlspecialchars(ucfirst($row['purchased_name'])) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['total_stock']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['price']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['dateAdded']) . "</td>";
-                                echo "<td>
-                                        <button>Edit</button>
-                                        <button>Delete</button>
-                                    </td>";
-                                echo "</tr>";
-                            }
+                <?php
+                    include "../db.php";
+                    $sql = "SELECT itemID, purchased_name, SUM(stock) OVER (PARTITION BY purchased_name) AS 'total_stock', price, dateAdded FROM purchaseditem;";
+                    $result = $conn->query($sql);
+                    $no = 1;
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr data-purchase-id='" . htmlspecialchars($row['itemID'], ENT_QUOTES) . "'>";
+                            echo "<td>" . $no++ . "</td>";
+                            echo "<td>" . htmlspecialchars(ucfirst($row['purchased_name'])) . "</td>"; //1
+                            echo "<td>" . htmlspecialchars($row['total_stock']) . "</td>"; //2
+                            echo "<td>" . htmlspecialchars($row['price']) . "</td>"; //3
+                            echo "<td>" . htmlspecialchars($row['dateAdded']) . "</td>";
+                            echo "<td>
+                                    <button type='button' class='editBtn'>Edit</button>
+                                    <button type='button' class='deleteBtn'>Delete</button>
+                                </td>";
+                            echo "</tr>";
                         }
-                    ?>
-                </tr>
+                    }
+                ?>
             </tbody>
         </table>
 
@@ -65,4 +63,5 @@
     </div>
 </body>
 <script src="changeView.js"></script>
+<script src="editPurchases.js"></script>
 </html>
