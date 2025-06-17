@@ -36,29 +36,27 @@
             </thead>
             <!-- User Management Body -->
             <tbody id="salesBody">
-                <tr>
-                    <?php
-                        include "../db.php";
-                        $sql = "SELECT p.product_name AS 'Product Name', s.quantity, s.totalPrice, s.dateSold FROM sales s JOIN products p ON s.productID = p.productID";
-                        $result = $conn->query($sql);
-                        $no = 1;
-                        if ($result && $result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $no++ . "</td>";
-                                echo "<td>" . htmlspecialchars(ucfirst($row['Product Name'])) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['quantity']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['totalPrice']) . "</td>";
-                                echo "<td>" . htmlspecialchars($row['dateSold']) . "</td>";
-                                echo "<td>
-                                        <button>Edit</button>
-                                        <button>Delete</button>
-                                    </td>";
-                                echo "</tr>";
-                            }
+                <?php
+                    include "../db.php";
+                    $sql = "SELECT s.salesID, p.product_name AS 'Product_Name', s.quantity, s.totalPrice, s.dateSold FROM sales s JOIN products p ON s.productID = p.productID";
+                    $result = $conn->query($sql);
+                    $no = 1;
+                    if ($result && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr data-sales-id='" . htmlspecialchars($row['salesID'], ENT_QUOTES) . "'>";
+                            echo "<td>" . $no++ . "</td>";
+                            echo "<td>" . htmlspecialchars(ucfirst($row['Product_Name'])) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['quantity']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['totalPrice']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['dateSold']) . "</td>";
+                            echo "<td>
+                                    <button type='button' class='editBtn'>Edit</button>
+                                    <button type='button' class='deleteBtn'>Delete</button>
+                                </td>";
+                            echo "</tr>";
                         }
-                    ?>
-                </tr>
+                    }
+                ?>
             </tbody>
         </table>
 
@@ -83,4 +81,5 @@
     </div>
 </body>
 <script src="changeView.js"></script>
+<script src="editSales.js"></script>
 </html>
