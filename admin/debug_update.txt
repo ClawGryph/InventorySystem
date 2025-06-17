@@ -1,7 +1,0 @@
-Array
-(
-    [old_soldProductName] => Corn Dog
-    [soldProductName] => Candy
-    [quantity] => 5
-    [salesID] => 8
-)
