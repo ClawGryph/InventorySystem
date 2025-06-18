@@ -33,7 +33,6 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Total Sold</th>
-                                <th>Total Stock</th>
                             </tr>
                         </thead>
                         <tbody id="highestSellingProductBody">
