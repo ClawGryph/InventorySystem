@@ -2,11 +2,31 @@
     include "../db.php";
 
     $productOptions = [];
-    $sqlProducts = "SELECT productID, product_name, selling_price FROM products";
+    $sqlProducts = "SELECT p.productID, p.product_name
+        FROM products p
+        WHERE NOT EXISTS (
+            SELECT 1 FROM product_purchased_item ppi
+            JOIN purchaseditem pi ON ppi.itemID = pi.itemID
+            WHERE ppi.productID = p.productID AND pi.stock <= 0
+        )";
     $resultProducts = $conn->query($sqlProducts);
     if ($resultProducts && $resultProducts->num_rows > 0) {
         while ($row = $resultProducts->fetch_assoc()) {
             $productOptions[] = $row;
+        }
+    }
+
+    $productStockMap = []; // This will hold the lowest stock per productID
+
+    $sqlStock = "SELECT ppi.productID, MIN(pi.stock) AS lowestStock
+        FROM product_purchased_item ppi
+        JOIN purchaseditem pi ON ppi.itemID = pi.itemID
+        GROUP BY ppi.productID";
+    $resultStock = $conn->query($sqlStock);
+
+    if ($resultStock && $resultStock->num_rows > 0) {
+        while ($row = $resultStock->fetch_assoc()) {
+            $productStockMap[$row['productID']] = $row['lowestStock'];
         }
     }
 ?>
@@ -75,11 +95,19 @@
                 </select>   
                 <label for="quantity">Quantity:</label>
                 <input type="number" id="quantitySold" name="quantity" required>
+                <span id="stockError" style="color:red; display:none;"></span>
+                <input type="hidden" id="availableStock">
                 <button type="submit" id="addNewSalesButton">Add New Sales</button>
             </form>
         </div>
     </div>
+    <script>
+        // Pass PHP array to JS
+        var productStockMap = <?php echo json_encode($productStockMap); ?>;
+    </script>
+    <script src="checkingStock.js"></script>
+    <script src="changeView.js"></script>
+    <script src="editSales.js"></script>
+    <script src="displayMessageNotification.js"></script>
 </body>
-<script src="changeView.js"></script>
-<script src="editSales.js"></script>
 </html>

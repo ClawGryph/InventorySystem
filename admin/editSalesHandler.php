@@ -1,8 +1,6 @@
 <?php
 include "../db.php";
 
-file_put_contents('debug_update.txt', print_r($_POST, true));
-
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $salesID = intval($_POST["salesID"]);
     $soldProductName = trim($_POST["soldProductName"]);
