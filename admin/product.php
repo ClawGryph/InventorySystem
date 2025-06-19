@@ -87,54 +87,54 @@
             </form>
         </div>
     </div>
-</body>
-<script src="editProducts.js"></script>
-<script>
-var purchasePrices = <?php echo json_encode(array_column($purchaseItems, 'price', 'itemID')); ?>;
+    <script src="../jsFiles/editProducts.js"></script>
+    <script>
+    var purchasePrices = <?php echo json_encode(array_column($purchaseItems, 'price', 'itemID')); ?>;
 
-function updateTotalPrice() {
-    var selects = document.querySelectorAll('#purchaseDropdowns select');
-    var total = 0;
-    selects.forEach(function(select) {
-        var itemId = select.value;
-        if (purchasePrices[itemId]) {
-            total += parseFloat(purchasePrices[itemId]);
-        }
-    });
-    document.getElementById('totalPrice').textContent = total.toFixed(2);
-    document.getElementById('totalBuyingPriceInput').value = total.toFixed(2);
-}
-
-// Update total when dropdown changes
-document.getElementById('purchaseDropdowns').addEventListener('change', updateTotalPrice);
-
-// Update total when new dropdown is added
-document.getElementById('addDropdownBtn').addEventListener('click', function() {
-    var dropdownsDiv = document.getElementById('purchaseDropdowns');
-    var selects = dropdownsDiv.getElementsByTagName('select');
-    if (selects.length > 0) {
-        var newSelect = selects[0].cloneNode(true);
-        dropdownsDiv.appendChild(document.createElement('br'));
-        dropdownsDiv.appendChild(newSelect);
-        newSelect.addEventListener('change', updateTotalPrice);
+    function updateTotalPrice() {
+        var selects = document.querySelectorAll('#purchaseDropdowns select');
+        var total = 0;
+        selects.forEach(function(select) {
+            var itemId = select.value;
+            if (purchasePrices[itemId]) {
+                total += parseFloat(purchasePrices[itemId]);
+            }
+        });
+        document.getElementById('totalPrice').textContent = total.toFixed(2);
+        document.getElementById('totalBuyingPriceInput').value = total.toFixed(2);
     }
+
+    // Update total when dropdown changes
+    document.getElementById('purchaseDropdowns').addEventListener('change', updateTotalPrice);
+
+    // Update total when new dropdown is added
+    document.getElementById('addDropdownBtn').addEventListener('click', function() {
+        var dropdownsDiv = document.getElementById('purchaseDropdowns');
+        var selects = dropdownsDiv.getElementsByTagName('select');
+        if (selects.length > 0) {
+            var newSelect = selects[0].cloneNode(true);
+            dropdownsDiv.appendChild(document.createElement('br'));
+            dropdownsDiv.appendChild(newSelect);
+            newSelect.addEventListener('change', updateTotalPrice);
+        }
+        updateTotalPrice();
+    });
+
+    // Initial total
     updateTotalPrice();
-});
 
-// Initial total
-updateTotalPrice();
+    document.getElementById('newProduct').addEventListener('click', function() {
+        document.getElementById('addProductModal').style.opacity = 1;
+        document.getElementById('productTable').style.opacity = 0;
+        document.getElementById('newProduct').style.opacity = 0;
+    });
 
-document.getElementById('newProduct').addEventListener('click', function() {
-    document.getElementById('addProductModal').style.opacity = 1;
-    document.getElementById('productTable').style.opacity = 0;
-    document.getElementById('newProduct').style.opacity = 0;
-});
-
-document.getElementById('addProductButton').addEventListener('click', function(event) {
-    document.getElementById('addProductModal').style.opacity = 0;
-    document.getElementById('productTable').style.opacity = 1;
-    document.getElementById('newProduct').style.opacity = 1;
-    
-});
-</script>
+    document.getElementById('addProductButton').addEventListener('click', function(event) {
+        document.getElementById('addProductModal').style.opacity = 0;
+        document.getElementById('productTable').style.opacity = 1;
+        document.getElementById('newProduct').style.opacity = 1;
+        
+    });
+    </script>
+</body>
 </html>

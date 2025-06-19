@@ -37,7 +37,7 @@
     </table>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="fetchSalesReport.js"></script>
+    <script src="../jsFiles/fetchSalesReport.js"></script>
     <script>
         flatpickr("#startDate", { dateFormat: "Y-m-d" });
         flatpickr("#endDate", { dateFormat: "Y-m-d" });

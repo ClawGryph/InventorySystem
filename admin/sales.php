@@ -105,9 +105,9 @@
         // Pass PHP array to JS
         var productStockMap = <?php echo json_encode($productStockMap); ?>;
     </script>
-    <script src="checkingStock.js"></script>
-    <script src="changeView.js"></script>
-    <script src="editSales.js"></script>
-    <script src="displayMessageNotification.js"></script>
+    <script src="../jsFiles/checkingStock.js"></script>
+    <script src="../jsFiles/changeView.js"></script>
+    <script src="../jsFiles/editSales.js"></script>
+    <script src="../jsFiles/displayMessageNotification.js"></script>
 </body>
 </html>

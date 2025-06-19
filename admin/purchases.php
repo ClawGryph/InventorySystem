@@ -61,7 +61,7 @@
             </form>
         </div>
     </div>
+    <script src="../jsFiles/changeView.js"></script>
+    <script src="../jsFiles/editPurchases.js"></script>
 </body>
-<script src="changeView.js"></script>
-<script src="editPurchases.js"></script>
 </html>

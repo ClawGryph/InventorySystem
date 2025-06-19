@@ -65,7 +65,7 @@
             </form>
         </div>
     </div>
+    <script src="../jsFiles/changeView.js"></script>
+    <script src="../jsFiles/editUser.js"></script>
 </body>
-<script src="changeView.js"></script>
-<script src="editUser.js"></script>
 </html>

@@ -107,6 +107,6 @@
             </div>
         </div>
     </main>
-    <script src="fetchingDashboardTotals.js"></script>
+    <script src="../jsFiles/fetchingDashboardTotals.js"></script>
 </body>
 </html>
