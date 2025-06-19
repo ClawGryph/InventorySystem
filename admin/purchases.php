@@ -24,7 +24,7 @@
             <tbody id="purchaseBody">
                 <?php
                     include "../db.php";
-                    $sql = "SELECT itemID, purchased_name, SUM(stock) OVER (PARTITION BY purchased_name) AS 'total_stock', price, dateAdded FROM purchaseditem;";
+                    $sql = "SELECT itemID, purchased_name, SUM(stock) AS 'total_stock', price, dateAdded FROM purchaseditem GROUP BY purchased_name, price ORDER BY purchased_name, price";
                     $result = $conn->query($sql);
                     $no = 1;
                     if ($result && $result->num_rows > 0) {

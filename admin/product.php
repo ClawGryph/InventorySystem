@@ -1,7 +1,7 @@
 <?php
     include "../db.php";
     $purchaseItems = [];
-    $sql = "SELECT itemID, purchased_name, price FROM purchaseditem GROUP BY purchased_name, price";
+    $sql = "SELECT itemID, purchased_name, price FROM purchaseditem WHERE stock > 0 GROUP BY purchased_name, price";
     $result = $conn->query($sql);
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
