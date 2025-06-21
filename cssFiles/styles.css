@@ -66,6 +66,110 @@ a{
     }
 }
 
+/* Login */
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+     overflow: hidden;
+}
+.login-container{
+    position: relative;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-container span{
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--secondary-color);
+    transition: 0.5s;
+}
+.login-container span:nth-child(1){
+    border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+    animation: animate 6s linear infinite;
+}
+.login-container span:nth-child(2) {
+    border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+    animation: animate 4s linear infinite;
+}
+.login-container span:nth-child(3) {
+    border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+    animation: animate2 10s linear infinite;
+}
+.login-container:hover span {
+    border: 6px solid var(--clr);
+    filter: drop-shadow(0 0 20px var(--clr));
+}
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes animate2 {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+ .form-container {
+            position: absolute;
+            width: 300px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-container h2 {
+            font-size: 2em;
+            color: var(--heading-color);
+        }
+ .input-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        .input-container input {
+            position: relative;
+            width: 100%;
+            padding: 12px 20px;
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            border-radius: 40px;
+            font-size: 1.2em;
+            color: var(--secondary-color);
+            box-shadow: none;
+            outline: none;
+        }
+.login-btn{
+    display: block;
+    position:relative;
+    width: 50%;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    transition: background-color 300ms ease;
+    margin: 0 auto;
+}
+.login-btn:hover{
+    background-color: #8BBF5A;
+}
+
 /* Navigation */
 nav ul{
     margin: 0;
