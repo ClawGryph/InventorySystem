@@ -14,14 +14,6 @@
     }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
-</head>
-<body>
     <div>
         <h2>Product Management</h2>
         <button id="newProduct" style="opacity: 1;">Add New Product</button>
@@ -79,19 +71,15 @@
                 </div>
                 <button type="button" id="addDropdownBtn">Add Another Purchase Item</button>
                 <br><br>
-                <label for="totalBuyingPrice">Total Buying Price <span id="totalPrice"></span></label>
+                <label for="totalBuyingPrice">Total Buying Price <span id="totalPrice">0</span></label>
                 <input type="hidden" id="totalBuyingPriceInput" name="buying_price" value="0">
                 <label for="sellingPrice">Selling Price:</label>
                 <input type="number" id="sellingPrice" name="sellingPrice" required>
                 <button type="submit" id="addProductButton">Add Product</button>
             </form>
         </div>
-    </div>
-    <script src="../jsFiles/changeView.js"></script>
-    <script src="../jsFiles/editProducts.js"></script>
-    <script>
-        var purchasePrices = <?php echo json_encode(array_column($purchaseItems, 'price', 'itemID')); ?>;
+        <script>
+        window.purchasePrices = <?php echo json_encode(array_column($purchaseItems, 'price', 'itemID')); ?>;
     </script>
-    <script src="../jsFiles/updatingTotalPrice.js"></script>
-</body>
-</html>
+    </div>
+

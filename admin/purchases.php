@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchases</title>
-</head>
-<body>
+
     <div>
         <h2>Purchases</h2>
         <button id="addPurchasePage">Add new purchase</button>
@@ -61,7 +54,3 @@
             </form>
         </div>
     </div>
-    <script src="../jsFiles/changeView.js"></script>
-    <script src="../jsFiles/editPurchases.js"></script>
-</body>
-</html>

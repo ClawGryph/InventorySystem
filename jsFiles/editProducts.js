@@ -1,4 +1,18 @@
-document.addEventListener('DOMContentLoaded', function() {
+function initProducts(){
+
+     document.getElementById('newProduct').addEventListener('click', function() {
+        document.getElementById('addProductModal').style.opacity = 1;
+        document.getElementById('productTable').style.opacity = 0;
+        document.getElementById('newProduct').style.opacity = 0;
+    });
+
+    document.getElementById('addProductButton').addEventListener('click', function(event) {
+        document.getElementById('addProductModal').style.opacity = 0;
+        document.getElementById('productTable').style.opacity = 1;
+        document.getElementById('newProduct').style.opacity = 1;
+        
+    });
+    
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
             var row = btn.closest('tr');
@@ -64,12 +78,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+
 
 
 
 // Delete button functionality
-document.addEventListener('DOMContentLoaded', function() {
+
     document.querySelectorAll('.deleteBtn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             if (!confirm("Are you sure you want to delete this product?")) return;
@@ -88,4 +102,4 @@ document.addEventListener('DOMContentLoaded', function() {
             xhr.send("productID=" + encodeURIComponent(productID));
         });
     });
-});
+}

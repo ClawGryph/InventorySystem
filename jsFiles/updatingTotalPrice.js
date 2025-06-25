@@ -1,4 +1,5 @@
-function updateTotalPrice() {
+function initUpdatingTotalPrice() {
+    function updateTotalPrice() {
         var selects = document.querySelectorAll('#purchaseDropdowns select');
         var total = 0;
         selects.forEach(function(select) {
@@ -20,6 +21,7 @@ function updateTotalPrice() {
         var selects = dropdownsDiv.getElementsByTagName('select');
         if (selects.length > 0) {
             var newSelect = selects[0].cloneNode(true);
+            newSelect.selectedIndex = 0; // Reset to first option
             dropdownsDiv.appendChild(document.createElement('br'));
             dropdownsDiv.appendChild(newSelect);
             newSelect.addEventListener('change', updateTotalPrice);
@@ -29,3 +31,4 @@ function updateTotalPrice() {
 
     // Initial total
     updateTotalPrice();
+}

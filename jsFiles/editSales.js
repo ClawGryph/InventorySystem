@@ -1,4 +1,14 @@
-document.addEventListener('DOMContentLoaded', function() {
+function initSales(){
+    document.getElementById('addNewSales').addEventListener('click', function() {
+        document.getElementById('addSalesModal').style.opacity = '1';
+        document.getElementById('salesTable').style.opacity = '0';
+        document.getElementById('addNewSales').style.opacity = '0';
+    });
+    document.getElementById('addNewSalesButton').addEventListener('click', function() {
+        document.getElementById('addSalesModal').style.opacity = '0';
+        document.getElementById('salesTable').style.opacity = '1';
+    }); 
+
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
             var row = btn.closest('tr');
@@ -68,12 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
 
 
 
 // Delete button functionality
-document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.deleteBtn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             if (!confirm("Are you sure you want to delete this user?")) return;
@@ -92,4 +100,4 @@ document.addEventListener('DOMContentLoaded', function() {
             xhr.send("salesID=" + encodeURIComponent(salesID));
         });
     });
-});
+}

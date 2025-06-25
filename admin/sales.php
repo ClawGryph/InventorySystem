@@ -31,15 +31,6 @@
     }
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales</title>
-</head>
-<body>
     <div>
         <h2>Sales</h2>
         <button id="addNewSales" style="opacity: 1;">Add Sales</button>
@@ -100,14 +91,10 @@
                 <button type="submit" id="addNewSalesButton">Add New Sales</button>
             </form>
         </div>
+         <script>
+            // Pass PHP array to JS
+            window.productStockMap = <?php echo json_encode($productStockMap); ?>;
+        </script>
     </div>
-    <script>
-        // Pass PHP array to JS
-        var productStockMap = <?php echo json_encode($productStockMap); ?>;
-    </script>
-    <script src="../jsFiles/checkingStock.js"></script>
-    <script src="../jsFiles/changeView.js"></script>
-    <script src="../jsFiles/editSales.js"></script>
-    <script src="../jsFiles/displayMessageNotification.js"></script>
-</body>
-</html>
+   
+   

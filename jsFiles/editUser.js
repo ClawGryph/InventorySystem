@@ -1,4 +1,15 @@
-document.addEventListener('DOMContentLoaded', function() {
+function initUserManagement(){
+
+    document.getElementById('addUserPage').addEventListener('click', function() {
+        document.getElementById('addUserModal').style.opacity = '1';
+        document.getElementById('userManagementTable').style.opacity = '0';
+        document.getElementById('addUserPage').style.opacity = '0';
+    });
+    document.getElementById('addUserButton').addEventListener('click', function() {
+        document.getElementById('addUserModal').style.opacity = '1';
+        document.getElementById('userManagementTable').style.opacity = '0';
+    });
+    
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
             var row = btn.closest('tr');
@@ -71,12 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
-
 
 
 // Delete button functionality
-document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.deleteBtn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             if (!confirm("Are you sure you want to delete this user?")) return;
@@ -95,4 +103,4 @@ document.addEventListener('DOMContentLoaded', function() {
             xhr.send("username=" + encodeURIComponent(username));
         });
     });
-});
+}

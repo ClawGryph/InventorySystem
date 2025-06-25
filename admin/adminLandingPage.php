@@ -7,148 +7,38 @@
     <link rel="stylesheet" href="../cssFiles/normalize.css">
     <link rel="stylesheet" href="../cssFiles/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="#"><i class="fa-solid fa-bars"></i>Dashboard</a></li>
-            <li><a href="#"><i class="fa-solid fa-users"></i>User Management</a></li>
-            <li><a href="#"><i class="fa-solid fa-money-bill"></i>Purchases</a></li>
-            <li><a href="#"><i class="fa-solid fa-boxes-stacked"></i>Product</a></li>
-            <li><a href="#"><i class="fa-solid fa-money-bill-trend-up"></i>Sales</a></li>
-            <li><a href="#"><i class="fa-solid fa-rectangle-list"></i>Sales Report</a></li>
+            <li><a href="#" data-content="dashboard.php"><i class="fa-solid fa-bars"></i>Dashboard</a></li>
+            <li><a href="#" data-content="userManagement.php"><i class="fa-solid fa-users"></i>User Management</a></li>
+            <li><a href="#" data-content="purchases.php"><i class="fa-solid fa-money-bill"></i>Purchases</a></li>
+            <li><a href="#" data-content="product.php"><i class="fa-solid fa-boxes-stacked"></i>Product</a></li>
+            <li><a href="#" data-content="sales.php"><i class="fa-solid fa-money-bill-trend-up"></i>Sales</a></li>
+            <li><a href="#" data-content="salesReport.php"><i class="fa-solid fa-rectangle-list"></i>Sales Report</a></li>
         </ul>
     </nav>
     <!-- Main Content -->
-    <main class="wrapper">
+    <main class="wrapper" >
          <div class="section">
-            <div class="box-area">
-                <div class="header">
-                    <h2>Dashboard</h2>
-                    <a href="../index.php" class="logout-btn">Logout</a>
-                </div>
-                <div class="cards-container">
-                    <div class="stats-card stats-card-sales">
-                        <div class="stats-info">
-                            <div class="stats-title">Sales</div>
-                            <div class="stats-value" id="totalSales">₱0.00</div>
-                        </div>
-                        <div class="stats-icon icon-sales-bg">
-                            <i class="fa-solid fa-money-bill-trend-up"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card stats-card-profit">
-                        <div class="stats-info">
-                            <div class="stats-title">Profit</div>
-                            <div class="stats-value" id="totalProfit">₱0.00</div>
-                        </div>
-                        <div class="stats-icon icon-profit-bg">
-                            <i class="fa-solid fa-hand-holding-dollar"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card stats-card-products">
-                        <div class="stats-info">
-                            <div class="stats-title">Products</div>
-                            <div class="stats-value" id="totalProducts">0</div>
-                        </div>
-                        <div class="stats-icon icon-products-bg">
-                            <i class="fa-solid fa-boxes-stacked"></i>
-                        </div>
-                    </div>
-                    <div class="stats-card stats-card-purchases">
-                        <div class="stats-info">
-                            <div class="stats-title">Purchase</div>
-                            <div class="stats-value" id="totalPurchases">₱0.00</div>
-                        </div>
-                        <div class="stats-icon icon-purchases-bg">
-                            <i class="fa-solid fa-money-bill"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="table-container">
-                    <div class="table-box">
-                        <h3>Highest Selling Product</h3>
-                        <table class="sales-table">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Name</th>
-                                    <th>Total Sold</th>
-                                </tr>
-                            </thead>
-                            <tbody class="sales-table-body" id="highestSellingProductBody">
-                                <!-- Highest Selling Product will be populated here -->
-                                <?php
-                                    include "../db.php";
-
-                                    // Get top 10 best-selling products by total quantity sold
-                                    $sql = "SELECT p.product_name, SUM(s.quantity) AS total_sold
-                                            FROM sales s
-                                            JOIN products p ON s.productID = p.productID
-                                            GROUP BY s.productID
-                                            ORDER BY total_sold DESC
-                                            LIMIT 10";
-                                    $result = $conn->query($sql);
-                                    $no = 1;
-
-                                    if ($result && $result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<tr>";
-                                            echo "<td>" . $no++ . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['product_name']) . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['total_sold']) . "</td>";
-                                            echo "</tr>";
-                                        }
-                                    }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="table-box">
-                        <h3>Latest Sales</h3>
-                        <table class="sales-table">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Name</th>
-                                    <th>Total Sale</th>
-                                </tr>
-                            </thead>
-                            <tbody class="sales-table-body" id="latestSalesBody">
-                                <!-- Latest Sales will be populated here -->
-                                <?php
-                                    include "../db.php";
-
-                                    // Get the latest sale (most recent dateSold)
-                                    $sql = "SELECT s.dateSold, p.product_name, s.totalPrice
-                                            FROM sales s
-                                            JOIN products p ON s.productID = p.productID
-                                            ORDER BY s.dateSold DESC, s.salesID DESC
-                                            LIMIT 10";
-                                    $result = $conn->query($sql);
-                                    $no = 1;
-
-                                    if ($row = $result->fetch_assoc()) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<tr>";
-                                            echo "<td>" . $no++ . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['dateSold']) . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['product_name']) . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['totalPrice']) . "</td>";
-                                            echo "</tr>";
-                                        }
-                                    } else {
-                                        echo "<tr><td colspan='4'>No sales found.</td></tr>";
-                                    }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="box-area" id="mainContent">
+                
+                
             </div>
          </div>
     </main>
+    <script src="../jsFiles/loadDashboardOnStart.js"></script>
+    <script src="../jsFiles/loadContents.js"></script>
     <script src="../jsFiles/fetchingDashboardTotals.js"></script>
+    <script src="../jsFiles/editUser.js"></script>
+    <script src="../jsFiles/editPurchases.js"></script>
+    <script src="../jsFiles/editProducts.js"></script>
+    <script src="../jsFiles/updatingTotalPrice.js"></script>
+    <script src="../jsFiles/editSales.js"></script>
+    <script src="../jsFiles/checkingStock.js"></script>
+    <script src="../jsFiles/displayMessageNotification.js"></script>
+    <script src="../jsFiles/fetchSalesReport.js"></script>
 </body>
 </html>
