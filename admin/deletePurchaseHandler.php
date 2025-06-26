@@ -1,5 +1,4 @@
 <?php
-file_put_contents('debug_delete.txt', print_r($_POST, true));
 include "../db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

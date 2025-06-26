@@ -1,4 +1,0 @@
-Array
-(
-    [itemID] => 12
-)
