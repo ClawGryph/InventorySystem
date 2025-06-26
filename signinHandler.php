@@ -14,21 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($row = $result->fetch_assoc()) {
         $storedHash = $row["password"];
+        $role = strtolower($row["role"]);
 
         // Use password_verify() to check the password
-        if($inputPassword === "admin"){
-            $_SESSION["user"] = $username;
-
-            // Update last_login for admin
-            $updateSql = "UPDATE users SET lastLogin = NOW() WHERE username = ?";
-            $updateStmt = $conn->prepare($updateSql);
-            $updateStmt->bind_param("s", $username);
-            $updateStmt->execute();
-
-            // Redirect to the admin landing page
-            header("Location: ./admin/adminLandingPage.php");
-            exit();
-        }else if (password_verify($inputPassword, $storedHash)) {
+        if (password_verify($inputPassword, $storedHash)) {
             $_SESSION["user"] = $username;
 
             // Update last_login for regular user
@@ -37,12 +26,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $updateStmt->bind_param("s", $username);
             $updateStmt->execute();
 
-            // Redirect to the landing page for regular users
-            header("Location: landingPage.php");
+            // Redirect base on role
+            if($role === "admin"){
+                header("Location: ./admin/adminlandingPage.php");
+            } else{
+                header("Location: ./user/userLandingPage.php");
+            }
             exit();
         }
     }
     
-    echo "Invalid username or password.";
+    header("Location: index.php?error=1");
+    exit();
 }
 ?>

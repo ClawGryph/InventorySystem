@@ -134,6 +134,14 @@ a{
             font-size: 2em;
             color: var(--heading-color);
         }
+.form-container .error-message{
+    color: #c1121f;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    width: 100%;
+    text-align: center;
+}
  .input-container {
             position: relative;
             width: 100%;

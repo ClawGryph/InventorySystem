@@ -15,6 +15,9 @@
             <span style="--clr:#31572c;"></span>
             <div class="form-container">
                 <h2>Sign in</h2>
+                <?php if (isset($_GET['error'])): ?>
+                    <div class="error-message">Invalid username or password.</div>
+                <?php endif; ?>
                 <form action="signinHandler.php" method="POST">
                     <div class="input-container">
                         <input type="text" id="username" name="username" placeholder="Username" required>
