@@ -278,6 +278,11 @@ nav ul li a:hover:before{
 .form-body .add-btn i{
     margin-right: .6rem;
 }
+.header .width-btn,
+.form-body .width-btn{
+    width: 150px;
+    padding: .7rem;
+}
 
 /* Cards */
 .cards-container{
@@ -398,6 +403,7 @@ nav ul li a:hover:before{
     letter-spacing: 0.1rem;
 }
 .content-table td input[type="text"],
+.content-table td input[type="number"],
 .content-table td select {
     width: 100%;
     padding: 6px 10px;
@@ -474,6 +480,7 @@ nav ul li a:hover:before{
 }
 .modal-body input[type="text"],
 .modal-body input[type="password"],
+.modal-body input[type="number"],
 .modal-body select {
     width: 100%;
     padding: 9px 12px;

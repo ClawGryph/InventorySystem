@@ -1,14 +1,24 @@
 function initPurchases(){
-    document.getElementById('addPurchasePage').addEventListener('click', function() {
-        document.getElementById('purchaseModal').style.opacity = 1;
-        document.getElementById('purchaseTable').style.opacity = 0;
-        document.getElementById('addPurchasePage').style.opacity = 0;
-    });
 
-    document.getElementById('addNewPurchase').addEventListener('click', function(event) {
-        document.getElementById('purchaseModal').style.opacity = 0;
-        document.getElementById('purchaseTable').style.opacity = 1;
-    });
+    toggleUserManagementView();
+
+    function toggleUserManagementView() {
+        const firstPage = document.querySelector(".first-page");
+        const purchaseModal = document.getElementById("purchaseModal");
+
+        // Show modal, hide main table
+        document.getElementById("addPurchasePage").addEventListener("click", function () {
+            firstPage.classList.add("hidden");
+            purchaseModal.classList.add("active");
+        });
+
+        // Back button
+        document.querySelector("#purchaseModal a[data-content='purchases.php']").addEventListener("click", function (e) {
+            e.preventDefault();
+            purchaseModal.classList.remove("active");
+            firstPage.classList.remove("hidden");
+        });
+    }
 
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
@@ -18,7 +28,7 @@ function initPurchases(){
             var stockCell = row.children[2];
             var actionsCell = row.children[5];
 
-            if (btn.textContent === "Edit") {
+            if (btn.classList.contains("editBtn")) {
                 // Remove the Delete button
                 var deleteBtn = actionsCell.querySelector('button:not(.editBtn):not(.saveBtn)');
                 if (deleteBtn) {
@@ -39,8 +49,8 @@ function initPurchases(){
                 purchasedPriceCell.innerHTML = "<input type='number' value='" + purchasedPrice + "'>";
 
                 // Change Edit to Save
-                btn.textContent = "Save";
-                btn.classList.add("saveBtn");
+                btn.innerHTML = "<i class='fa-solid fa-floppy-disk'></i>";
+                btn.classList.add("icon", "saveBtn");
                 btn.classList.remove("editBtn");
             } else {
                 // On Save
@@ -58,7 +68,7 @@ function initPurchases(){
                         purchasedNameCell.textContent = newPurchasedName;
                         stockCell.textContent = newStock;
                         purchasedPriceCell.textContent = newPurchasedPrice;
-                        btn.textContent = "Edit";
+                        btn.innerHTML = "<i class='fa-solid fa-pen-to-square'></i>";
                         btn.classList.add("editBtn");
                         btn.classList.remove("saveBtn");
 
@@ -66,8 +76,8 @@ function initPurchases(){
                         if (!actionsCell.querySelector('.deleteBtn')) {
                             var deleteBtn = document.createElement('button');
                             deleteBtn.type = "button";
-                            deleteBtn.className = "deleteBtn";
-                            deleteBtn.textContent = "Delete";
+                            deleteBtn.classList.add("icon", "deleteBtn", "delete-bg");
+                            deleteBtn.innerHTML = "<i class='fa-solid fa-trash'></i>";
                             actionsCell.appendChild(deleteBtn);
                         }
                     } else {
@@ -83,17 +93,17 @@ function initPurchases(){
     });
 
 
+document.getElementById("purchaseTable").addEventListener("click", function (e) {
+    const deleteBtn = e.target.closest(".deleteBtn");
+        if (deleteBtn) {
+            if (!confirm("Are you sure you want to delete this user?")) return;
 
-// Delete button functionality
-    document.querySelectorAll('.deleteBtn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            if (!confirm("Are you sure you want to delete this product?")) return;
-            var row = btn.closest('tr');
-            var itemID = row.getAttribute('data-purchase-id');
-            var xhr = new XMLHttpRequest();
+            const row = deleteBtn.closest("tr");
+            const itemID = row.getAttribute('data-purchase-id');
+            const xhr = new XMLHttpRequest();
             xhr.open("POST", "deletePurchaseHandler.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === "success") {
                     row.remove();
                 } else {
@@ -101,6 +111,6 @@ function initPurchases(){
                 }
             };
             xhr.send("itemID=" + encodeURIComponent(itemID));
-        });
-    });
+        }
+});
 }
