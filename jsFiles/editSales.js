@@ -1,13 +1,23 @@
 function initSales(){
-    document.getElementById('addNewSales').addEventListener('click', function() {
-        document.getElementById('addSalesModal').style.opacity = '1';
-        document.getElementById('salesTable').style.opacity = '0';
-        document.getElementById('addNewSales').style.opacity = '0';
-    });
-    document.getElementById('addNewSalesButton').addEventListener('click', function() {
-        document.getElementById('addSalesModal').style.opacity = '0';
-        document.getElementById('salesTable').style.opacity = '1';
-    }); 
+    toggleUserManagementView();
+
+    function toggleUserManagementView() {
+        const firstPage = document.querySelector(".first-page");
+        const salesModal = document.getElementById("addSalesModal");
+
+        // Show modal, hide main table
+        document.getElementById("addNewSales").addEventListener("click", function () {
+            firstPage.classList.add("hidden");
+            salesModal.classList.add("active");
+        });
+
+        // Back button
+        document.querySelector("#addSalesModal a[data-content='sales.php']").addEventListener("click", function (e) {
+            e.preventDefault();
+            salesModal.classList.remove("active");
+            firstPage.classList.remove("hidden");
+        });
+    }
 
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
@@ -17,7 +27,7 @@ function initSales(){
             var quantityCell = row.children[2];
             var actionsCell = row.children[5];
 
-            if (btn.textContent === "Edit") {
+            if (btn.classList.contains("editBtn")) {
                 // Remove the Delete button
                 var deleteBtn = actionsCell.querySelector('button:not(.editBtn):not(.saveBtn)');
                 if (deleteBtn) {
@@ -36,8 +46,8 @@ function initSales(){
                 quantityCell.innerHTML = "<input type='number' value='" + quantity + "'>";
 
                 // Change Edit to Save
-                btn.textContent = "Save";
-                btn.classList.add("saveBtn");
+                btn.innerHTML = "<i class='fa-solid fa-floppy-disk'></i>";
+                btn.classList.add("icon", "saveBtn");
                 btn.classList.remove("editBtn");
             } else {
                 // On Save
@@ -53,7 +63,7 @@ function initSales(){
                     if (xhr.status === 200) {
                         soldProductNameCell.textContent = newSoldProductName;
                         quantityCell.textContent = newQuantity;
-                        btn.textContent = "Edit";
+                        btn.innerHTML = "<i class='fa-solid fa-pen-to-square'></i>";
                         btn.classList.add("editBtn");
                         btn.classList.remove("saveBtn");
 
@@ -61,12 +71,10 @@ function initSales(){
                         if (!actionsCell.querySelector('.deleteBtn')) {
                             var deleteBtn = document.createElement('button');
                             deleteBtn.type = "button";
-                            deleteBtn.className = "deleteBtn";
-                            deleteBtn.textContent = "Delete";
+                            deleteBtn.classList.add("icon", "deleteBtn", "delete-bg");
+                            deleteBtn.innerHTML = "<i class='fa-solid fa-trash'></i>";
                             actionsCell.appendChild(deleteBtn);
                         }
-
-                        window.location.href = "sales.php"; // Redirect to sales page after edit
                     } else {
                         alert(xhr.responseText || "Update failed!");
                     }
@@ -79,18 +87,17 @@ function initSales(){
         });
     });
 
-
-
-// Delete button functionality
-    document.querySelectorAll('.deleteBtn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
+document.getElementById("salesTable").addEventListener("click", function (e) {
+    const deleteBtn = e.target.closest(".deleteBtn");
+        if (deleteBtn) {
             if (!confirm("Are you sure you want to delete this user?")) return;
-            var row = btn.closest('tr');
-            var salesID = row.getAttribute('data-sales-id');
-            var xhr = new XMLHttpRequest();
+
+            const row = deleteBtn.closest("tr");
+            const salesID = row.getAttribute('data-sales-id');
+            const xhr = new XMLHttpRequest();
             xhr.open("POST", "deleteSalesHandler.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === "success") {
                     row.remove();
                 } else {
@@ -98,6 +105,6 @@ function initSales(){
                 }
             };
             xhr.send("salesID=" + encodeURIComponent(salesID));
-        });
-    });
+        }
+});
 }
