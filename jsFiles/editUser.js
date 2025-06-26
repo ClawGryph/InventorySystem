@@ -1,14 +1,24 @@
 function initUserManagement(){
+    toggleUserManagementView();
 
-    document.getElementById('addUserPage').addEventListener('click', function() {
-        document.getElementById('addUserModal').style.opacity = '1';
-        document.getElementById('userManagementTable').style.opacity = '0';
-        document.getElementById('addUserPage').style.opacity = '0';
-    });
-    document.getElementById('addUserButton').addEventListener('click', function() {
-        document.getElementById('addUserModal').style.opacity = '1';
-        document.getElementById('userManagementTable').style.opacity = '0';
-    });
+    function toggleUserManagementView() {
+        const firstPage = document.querySelector(".first-page");
+        const addUserModal = document.getElementById("addUserModal");
+
+        // Show modal, hide main table
+        document.getElementById("addUserPage").addEventListener("click", function () {
+            firstPage.classList.add("hidden");
+            addUserModal.classList.add("active");
+        });
+
+        // Back button
+        document.querySelector("#addUserModal a[data-content='userManagement.php']").addEventListener("click", function (e) {
+            e.preventDefault();
+            addUserModal.classList.remove("active");
+            firstPage.classList.remove("hidden");
+        });
+    }
+
     
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
@@ -18,7 +28,7 @@ function initUserManagement(){
             var roleCell = row.children[3];
             var actionsCell = row.children[5];
 
-            if (btn.textContent === "Edit") {
+            if (btn.classList.contains("editBtn")) {
                 // Remove the Delete button
                 var deleteBtn = actionsCell.querySelector('button:not(.editBtn):not(.saveBtn)');
                 if (deleteBtn) {
@@ -40,8 +50,8 @@ function initUserManagement(){
                 roleCell.querySelector("select").value = role;
 
                 // Change Edit to Save
-                btn.textContent = "Save";
-                btn.classList.add("saveBtn");
+                btn.innerHTML = "<i class='fa-solid fa-floppy-disk'></i>";
+                btn.classList.add("icon", "saveBtn");
                 btn.classList.remove("editBtn");
             } else {
                 // On Save
@@ -59,18 +69,20 @@ function initUserManagement(){
                         fullnameCell.textContent = newFullname;
                         usernameCell.textContent = newUsername;
                         roleCell.textContent = newRole.charAt(0).toUpperCase() + newRole.slice(1);
-                        btn.textContent = "Edit";
+                        btn.innerHTML = "<i class='fa-solid fa-pen-to-square'></i>";
                         btn.classList.add("editBtn");
                         btn.classList.remove("saveBtn");
+
 
                         // Restore the Delete button
                         if (!actionsCell.querySelector('.deleteBtn')) {
                             var deleteBtn = document.createElement('button');
                             deleteBtn.type = "button";
-                            deleteBtn.className = "deleteBtn";
-                            deleteBtn.textContent = "Delete";
+                            deleteBtn.classList.add("icon", "deleteBtn", "delete-bg");
+                            deleteBtn.innerHTML = "<i class='fa-solid fa-trash'></i>";
                             actionsCell.appendChild(deleteBtn);
                         }
+
                     } else {
                         alert("Update failed!");
                     }
@@ -83,17 +95,18 @@ function initUserManagement(){
         });
     });
 
-
-// Delete button functionality
-    document.querySelectorAll('.deleteBtn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
+    document.getElementById("userManagementTable").addEventListener("click", function (e) {
+        const deleteBtn = e.target.closest(".deleteBtn");
+        if (deleteBtn) {
             if (!confirm("Are you sure you want to delete this user?")) return;
-            var row = btn.closest('tr');
-            var username = row.getAttribute('data-username');
-            var xhr = new XMLHttpRequest();
+
+            const row = deleteBtn.closest("tr");
+            const username = row.querySelector("td:nth-child(3)").textContent.trim(); // assuming username is in 3rd cell
+
+            const xhr = new XMLHttpRequest();
             xhr.open("POST", "deleteUserHandler.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onload = function() {
+            xhr.onload = function () {
                 if (xhr.status === 200 && xhr.responseText === "success") {
                     row.remove();
                 } else {
@@ -101,6 +114,6 @@ function initUserManagement(){
                 }
             };
             xhr.send("username=" + encodeURIComponent(username));
-        });
+        }
     });
 }

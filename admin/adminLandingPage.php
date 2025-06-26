@@ -21,13 +21,8 @@
         </ul>
     </nav>
     <!-- Main Content -->
-    <main class="wrapper" >
-         <div class="section">
-            <div class="box-area" id="mainContent">
-                
-                
-            </div>
-         </div>
+    <main class="wrapper" id="mainContent">
+         
     </main>
     <script src="../jsFiles/loadDashboardOnStart.js"></script>
     <script src="../jsFiles/loadContents.js"></script>

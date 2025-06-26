@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
         'salesReport.php': 'Admin || Sales Report'
     };
 
-    const nav = document.querySelector('nav ul');
     const mainContent = document.getElementById('mainContent');
 
     function loadPage(contentUrl) {
@@ -17,18 +16,16 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(html => {
                 mainContent.innerHTML = html;
 
-                // ✅ Normalize URL and update tab title
                 const normalizedUrl = contentUrl.split('/').pop();
                 if (titleMap[normalizedUrl]) {
                     document.title = titleMap[normalizedUrl];
                 }
 
-                // ✅ Execute inline scripts
                 mainContent.querySelectorAll('script').forEach(script => {
                     if (script.textContent) eval(script.textContent);
                 });
 
-                // ✅ Init scripts
+                // Page-specific init
                 if (normalizedUrl === 'dashboard.php' && typeof initAdminDashboard === 'function') {
                     initAdminDashboard();
                 }
@@ -55,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-
-    nav.addEventListener('click', function (e) {
+    // ✅ Listen to any clicks on data-content links across the document
+    document.addEventListener('click', function (e) {
         const link = e.target.closest('a[data-content]');
         if (link) {
             e.preventDefault();
@@ -65,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ✅ Auto-load dashboard
+    // ✅ Auto-load dashboard on initial load
     const defaultLink = document.querySelector('a[data-content="dashboard.php"]');
     if (defaultLink) {
         const contentUrl = defaultLink.getAttribute('data-content');

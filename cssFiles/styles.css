@@ -221,13 +221,17 @@ nav ul li a:hover:before{
     margin-left: 260px;
 }
 .section{
-    display: grid;
-    place-items: center;
+    display: block;
+    padding: 2rem;
     min-height: 100vh;
-    text-align: center;
 }
 .box-area{
-    width: 95%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: .5rem;
+    box-sizing: border-box;
 }
 
 /* Header */
@@ -236,6 +240,8 @@ nav ul li a:hover:before{
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1rem;
+}
+.header-bg{
     background-color: var(--border-color);
     border-radius: 10px;
 }
@@ -251,7 +257,8 @@ nav ul li a:hover:before{
     font-size: 2.5rem;
     color: var(--heading-color);
 }
-.logout-btn{
+.header .btn-header,
+.form-body .btn-header{
     background-color: var(--accent-color);
     color: var(--secondary-color);
     width: 100px;
@@ -263,14 +270,19 @@ nav ul li a:hover:before{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     transition: background-color 300ms ease;
 }
-.logout-btn:hover{
+.header .btn-header:hover,
+.form-body .btn-header:hover{
     background-color: #8BBF5A;
+}
+.header .add-btn i,
+.form-body .add-btn i{
+    margin-right: .6rem;
 }
 
 /* Cards */
 .cards-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     place-items: center;
     gap: 1rem;
     padding: 2rem;
@@ -354,35 +366,142 @@ nav ul li a:hover:before{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 2rem;
 }
 .table-container .table-box{
     background-color: var(--border-color);
     border-radius: 10px;
     overflow-x: auto;
 }
-
-.sales-table{
+.table-box h3{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #005943;
+    letter-spacing: 0.2rem;
+}
+.content-table{
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
-.sales-table th, .sales-table td{
+.content-table th, .content-table td{
     padding: 1rem;
     text-align: left;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
-.sales-table th{
+.content-table th{
     font-weight: 600;
     color: var(--heading-color);
+    background-color:  #dad6c4;
     letter-spacing: 0.1rem;
 }
-.sales-table-body tr{
+.table-body tr{
     border-bottom: 1px solid var(--secondary-color);
 }
-.sales-table-body tr:last-child{
+.table-body tr:last-child{
     border-bottom: none;
 }
-.sales-table-body tr:nth-child(even){
+.table-body tr:nth-child(even){
     background-color: rgba(76, 77, 82, 0.1);
 }
 
 /* User Management */
+.first-page,
+.modal-body{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.first-page{
+    background-color: var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    position: relative;
+}
+.first-page.hidden{
+    display: none;
+}
+.first-page .header, 
+.modal-body .header{
+    margin-bottom: 3rem;
+    border-bottom: 3px solid 	rgba(112, 128, 144, 0.3);
+}
+.modal-body{
+    background-color: var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(60,60,60,0.15);
+    padding: 2rem;
+    position: relative;
+    display: none;
+}
+.modal-body.active{
+    display: block;
+}
+.modal-body .header a{
+    color: var(--accent-color);
+    font-size: 1.4em;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.modal-body .header a:hover{
+    color: #8BBF5A;
+}
+.modal-body label{
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 16px;
+    font-weight: 500;
+    color: #444;
+    letter-spacing: 0.02em;
+}
+.modal-body input[type="text"],
+.modal-body input[type="password"],
+.modal-body select {
+    width: 100%;
+    padding: 9px 12px;
+    margin-bottom: 4px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #f9fafb;
+    font-size: 1em;
+    transition: border 0.2s;
+}
+.modal-body input:focus,
+.modal-body select:focus {
+    border-color: #3498db;
+    outline: none;
+    background: #fff;
+}
+.form-body .btn-header{
+    margin-top: 2rem;
+    padding: 1rem 0;
+}
+
+
+/* ICON */
+.icon{
+    border: none;
+    border-radius: 5px;
+    padding: .8rem;
+}
+.edit-bg{
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    transition: all 300ms ease-in-out;
+}
+.edit-bg:hover{
+    background-color: #8BBF5A;
+}
+.delete-bg{
+    background-color: #c1121f;
+    color: var(--border-color);
+}
+.delete-bg:hover{
+    background-color: #ad1c26;
+}
+.icon:hover{
+    cursor: pointer;
+}

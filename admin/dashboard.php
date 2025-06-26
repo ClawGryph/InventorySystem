@@ -1,8 +1,9 @@
 
-    <div id="dashboardContent">
-                    <div class="header">
+<div class="section">
+    <div id="dashboardContent" class="box-area">
+                    <div class="header header-bg">
                         <h2>Dashboard</h2>
-                        <a href="../index.php" class="logout-btn">Logout</a>
+                        <a href="../index.php" class="btn-header">Logout</a>
                     </div>
                     <div class="cards-container">
                         <div class="stats-card stats-card-sales">
@@ -45,7 +46,7 @@
                     <div class="table-container">
                         <div class="table-box">
                             <h3>Highest Selling Product</h3>
-                            <table class="sales-table">
+                            <table class="content-table">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -53,7 +54,7 @@
                                         <th>Total Sold</th>
                                     </tr>
                                 </thead>
-                                <tbody class="sales-table-body" id="highestSellingProductBody">
+                                <tbody class="table-body" id="highestSellingProductBody">
                                     <!-- Highest Selling Product will be populated here -->
                                     <?php
                                         include "../db.php";
@@ -83,7 +84,7 @@
                         </div>
                         <div class="table-box">
                             <h3>Latest Sales</h3>
-                            <table class="sales-table">
+                            <table class="content-table">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -92,7 +93,7 @@
                                         <th>Total Sale</th>
                                     </tr>
                                 </thead>
-                                <tbody class="sales-table-body" id="latestSalesBody">
+                                <tbody class="table-body" id="latestSalesBody">
                                     <!-- Latest Sales will be populated here -->
                                     <?php
                                         include "../db.php";
@@ -124,3 +125,5 @@
                         </div>
                     </div>
                 </div>
+</div>
+    
