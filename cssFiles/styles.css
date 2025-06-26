@@ -428,7 +428,7 @@ nav ul li a:hover:before{
     background-color: rgba(76, 77, 82, 0.1);
 }
 
-/* User Management */
+/* Menu Design */
 .first-page,
 .modal-body{
     position: absolute;
@@ -525,5 +525,100 @@ nav ul li a:hover:before{
     background-color: #ad1c26;
 }
 .icon:hover{
+    cursor: pointer;
+}
+
+/* Sales Report */
+.section > .box-area > .filterContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--border-color);
+    border-radius: 8px;
+}
+#startDate,
+#endDate {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    min-width: 180px;
+    flex: 1;
+}
+.filterContainer label {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    height: 42px;
+}
+.search-container input,
+.search-container button {
+    box-sizing: border-box;
+    height: 42px;
+    line-height: 1;
+}
+#searchInput {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.6rem;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    background-color: #fff;
+    min-width: 220px;
+    height: 42px; /* Make height explicit */
+    box-sizing: border-box;
+}
+#searchButton {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.5rem;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px; /* Same height as input */
+    box-sizing: border-box;
+}
+#searchButton i{
+    margin-right: 0.5rem;
+    font-size: 1.4rem;
+}
+#startDate,
+#endDate,
+#downloadButton {
+    height: 42px;
+    font-size: 1.6rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-family: inherit;
+}
+#downloadButton {
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    border: none;
+}
+#downloadButton i {
+    font-size: 1.5rem;
+}
+#downloadButton:hover,
+#searchButton:hover{
+    background-color: #8BBF5A;
     cursor: pointer;
 }
