@@ -24,7 +24,6 @@
     <main class="wrapper" id="mainContent">
          
     </main>
-    <script src="../jsFiles/loadDashboardOnStart.js"></script>
     <script src="../jsFiles/loadContents.js"></script>
     <script src="../jsFiles/fetchingDashboardTotals.js"></script>
     <script src="../jsFiles/editUser.js"></script>

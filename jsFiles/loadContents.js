@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
         'purchases.php': 'Admin || Purchases',
         'product.php': 'Admin || Product',
         'sales.php': 'Admin || Sales',
-        'salesReport.php': 'Admin || Sales Report'
+        'salesReport.php': 'Admin || Sales Report',
+        'usersDashboard.php': 'User || Dashboard',
+        'userSales.php': 'User || Sales'
     };
 
     const mainContent = document.getElementById('mainContent');
@@ -25,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (script.textContent) eval(script.textContent);
                 });
 
-                // Page-specific init
                 if (normalizedUrl === 'dashboard.php' && typeof initAdminDashboard === 'function') {
                     initAdminDashboard();
                 }
@@ -52,7 +53,18 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-    // ✅ Listen to any clicks on data-content links across the document
+    // Auto-load only one dashboard based on what page you're in
+    const isAdminPage = document.querySelector('a[data-content="dashboard.php"]');
+    const isUserPage = document.querySelector('a[data-content="usersDashboard.php"]');
+
+    if (isUserPage) {
+        setTimeout(() => {
+            loadPage(isUserPage.getAttribute('data-content'));
+        },  0);
+    } else if (isAdminPage) {
+        loadPage("dashboard.php");
+    }
+
     document.addEventListener('click', function (e) {
         const link = e.target.closest('a[data-content]');
         if (link) {
@@ -61,11 +73,4 @@ document.addEventListener('DOMContentLoaded', function () {
             loadPage(contentUrl);
         }
     });
-
-    // ✅ Auto-load dashboard on initial load
-    const defaultLink = document.querySelector('a[data-content="dashboard.php"]');
-    if (defaultLink) {
-        const contentUrl = defaultLink.getAttribute('data-content');
-        loadPage(contentUrl);
-    }
 });
