@@ -82,7 +82,7 @@
                     <a href="#" data-content="userSales.php"><i class="fa-solid fa-circle-arrow-left"></i></a>
                     <h2>Add New Sales</h2>
                 </div>
-                <form class="form-body" id="addSalesForm" action="addSalesHandler.php" method="POST">
+                <form class="form-body" id="addSalesForm" action="../admin/addSalesHandler.php" method="POST">
                     <label for="productName">Product Name: </label>
                     <select id="productName" name="productID" required>
                         <option value="">Select a product</option>
