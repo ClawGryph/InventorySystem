@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($inputPassword, $storedHash)) {
             $_SESSION["user"] = $username;
             $_SESSION["role"] = $role;
+            $_SESSION["fullname"] = $row["fullName"];
             $_SESSION["userID"] = $row["userID"]; 
 
             // Update last_login for regular user
