@@ -23,6 +23,7 @@ function initPurchases(){
     document.querySelectorAll('.editBtn').forEach(function(btn) {
         btn.addEventListener('click', function handler() {
             var row = btn.closest('tr');
+            var itemID = row.getAttribute('data-purchase-id');
             var purchasedNameCell = row.children[1];
             var purchasedPriceCell = row.children[3];
             var stockCell = row.children[2];
@@ -84,7 +85,8 @@ function initPurchases(){
                         alert("Update failed!");
                     }
                 };
-                xhr.send("old_purchasedName=" + encodeURIComponent(oldPurchasedName) +
+                xhr.send("itemID=" + encodeURI(itemID) +
+                         "old_purchasedName=" + encodeURIComponent(oldPurchasedName) +
                          "&purchasedName=" + encodeURIComponent(newPurchasedName) +
                          "&stock=" + encodeURIComponent(newStock) +
                          "&purchasedPrice=" + encodeURIComponent(newPurchasedPrice));

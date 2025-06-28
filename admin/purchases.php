@@ -21,7 +21,16 @@
                     <tbody class="table-body" id="purchaseBody">
                         <?php
                             include "../db.php";
-                            $sql = "SELECT itemID, purchased_name, SUM(stock) AS 'total_stock', price, dateAdded FROM purchaseditem GROUP BY purchased_name, price ORDER BY purchased_name, price";
+                            $sql = "
+                                    SELECT 
+                                        MIN(itemID) as itemID, 
+                                        purchased_name, 
+                                        price, 
+                                        SUM(stock) AS total_stock, 
+                                        MAX(dateAdded) AS dateAdded
+                                    FROM purchaseditem
+                                    GROUP BY purchased_name, price
+                                    ORDER BY purchased_name, price";
                             $result = $conn->query($sql);
                             $no = 1;
                             if ($result && $result->num_rows > 0) {
