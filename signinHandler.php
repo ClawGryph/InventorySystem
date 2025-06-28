@@ -19,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Use password_verify() to check the password
         if (password_verify($inputPassword, $storedHash)) {
             $_SESSION["user"] = $username;
+            $_SESSION["role"] = $role;
+            $_SESSION["userID"] = $row["userID"]; 
 
             // Update last_login for regular user
             $updateSql = "UPDATE users SET lastLogin = NOW() WHERE username = ?";

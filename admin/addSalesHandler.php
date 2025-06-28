@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // 🔁 Redirect based on role
         if (isset($_SESSION["role"]) && $_SESSION["role"] === "user") {
-            header("Location: ../users/usersDashboard.php");
+            header("Location: ../user/userLandingPage.php");
         } else {
             header("Location: adminLandingPage.php");
         }
