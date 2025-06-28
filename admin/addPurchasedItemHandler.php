@@ -19,7 +19,7 @@
 
         if ($stmt->execute()) {
             echo "Purchase item added successfully.";
-            header("Location: purchases.php");
+            header("Location: adminLandingPage.php");
             exit();
         } else {
             echo "Error: " . $stmt->error;

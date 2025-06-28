@@ -39,7 +39,7 @@
             }
             $relStmt->close();
 
-            header("Location: sales.php");
+            header("Location: adminLandingPage.php");
             exit();
         } else {
             echo "Error: " . $insert->error;

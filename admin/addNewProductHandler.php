@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insertPurchasedItem->close();
         }
 
-        header("Location: product.php");
+        header("Location: adminLandingPage.php");
         exit();
     } else {
         echo "Error: " . $stmt->error;
