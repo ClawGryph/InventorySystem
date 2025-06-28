@@ -13,9 +13,9 @@
         }
 
         // Prepare and execute the SQL statement
-        $sql = "INSERT INTO purchaseditem (purchased_name, stock, price, dateAdded) VALUES (?, ?, ?, NOW())";
+        $sql = "INSERT INTO purchaseditem (purchased_name, total_stock, stock, price, dateAdded) VALUES (?, ?, ?, ?, NOW())";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sid", $name, $quantity, $purchase_price);
+        $stmt->bind_param("siid", $name,$quantity, $quantity, $purchase_price);
 
         if ($stmt->execute()) {
             echo "Purchase item added successfully.";

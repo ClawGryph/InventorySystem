@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $purchasedPrice = floatval($_POST["purchasedPrice"]);
 
     // Check if another row (different itemID) has same name and price
-    $checkSql = "SELECT itemID, stock FROM purchaseditem WHERE purchased_name = ? AND price = ? AND itemID != ?";
+    $checkSql = "SELECT itemID, stock, total_stock FROM purchaseditem WHERE purchased_name = ? AND price = ? AND itemID != ?";
     $checkStmt = $conn->prepare($checkSql);
     $checkStmt->bind_param("sdi", $purchasedName, $purchasedPrice, $itemID);
     $checkStmt->execute();
@@ -19,10 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Match found → merge
         $existing = $checkResult->fetch_assoc();
         $newStock = $stock;
+        $newTotalStock = $stock;
 
-        // Update existing row with new stock
-        $updateStmt = $conn->prepare("UPDATE purchaseditem SET stock = ? WHERE itemID = ?");
-        $updateStmt->bind_param("ii", $newStock, $existing['itemID']);
+        // Update existing row with new stock and total_stock
+        $updateStmt = $conn->prepare("UPDATE purchaseditem SET stock = ?, total_stock = ? WHERE itemID = ?");
+        $updateStmt->bind_param("iii", $newStock, $newTotalStock, $existing['itemID']);
         $updateStmt->execute();
         $updateStmt->close();
 
@@ -35,9 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "merged";
     } else {
         // No match → update original row
-        $updateSql = "UPDATE purchaseditem SET purchased_name = ?, stock = ?, price = ? WHERE itemID = ?";
+        $updateSql = "UPDATE purchaseditem SET purchased_name = ?, stock = ?, total_stock = ?, price = ? WHERE itemID = ?";
         $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("sidi", $purchasedName, $stock, $purchasedPrice, $itemID);
+        $updateStmt->bind_param("siidi", $purchasedName, $stock, $stock, $purchasedPrice, $itemID);
 
         if ($updateStmt->execute()) {
             echo "success";

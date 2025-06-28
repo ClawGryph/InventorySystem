@@ -55,9 +55,9 @@ function initPurchases(){
                 btn.classList.remove("editBtn");
             } else {
                 // On Save
-                var newPurchasedName = purchasedNameCell.querySelector("input").value;
-                var newStock = stockCell.querySelector("input").value;
-                var newPurchasedPrice = purchasedPriceCell.querySelector("input").value;
+                var newPurchasedName = purchasedNameCell.querySelector("input").value.trim();
+                var newStock = stockCell.querySelector("input").value.trim();
+                var newPurchasedPrice = purchasedPriceCell.querySelector("input").value.trim();
                 var oldPurchasedName = btn.dataset.oldPurchasedName;
 
                 // AJAX to update
@@ -86,7 +86,7 @@ function initPurchases(){
                     }
                 };
                 xhr.send("itemID=" + encodeURI(itemID) +
-                         "old_purchasedName=" + encodeURIComponent(oldPurchasedName) +
+                         "&old_purchasedName=" + encodeURIComponent(oldPurchasedName) +
                          "&purchasedName=" + encodeURIComponent(newPurchasedName) +
                          "&stock=" + encodeURIComponent(newStock) +
                          "&purchasedPrice=" + encodeURIComponent(newPurchasedPrice));
