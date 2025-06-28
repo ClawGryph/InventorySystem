@@ -107,7 +107,7 @@
                                         $result = $conn->query($sql);
                                         $no = 1;
 
-                                        if ($row = $result->fetch_assoc()) {
+                                        if ($result && $result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
                                                 echo "<tr>";
                                                 echo "<td>" . $no++ . "</td>";

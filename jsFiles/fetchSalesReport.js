@@ -37,7 +37,6 @@ function initSalesReport() {
         );
     }
 
-    // Set event listeners (no need for DOMContentLoaded here)
     document.getElementById('searchButton').addEventListener('click', fetchSalesReport);
     document.getElementById('downloadButton').addEventListener('click', function () {
         const search = encodeURIComponent(document.getElementById('searchInput').value);
