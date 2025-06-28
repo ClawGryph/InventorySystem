@@ -53,7 +53,9 @@
                     <tbody class="table-body" id="salesBody">
                         <?php
                             include "../db.php";
-                            $sql = "SELECT s.salesID, p.product_name AS 'Product_Name', s.quantity, s.totalPrice, s.dateSold FROM sales s JOIN products p ON s.productID = p.productID";
+                            $sql = "SELECT s.salesID, COALESCE(p.product_name, 'Deleted Product') AS Product_Name, s.quantity, s.totalPrice, s.dateSold 
+                                    FROM sales s 
+                                    LEFT JOIN products p ON s.productID = p.productID";
                             $result = $conn->query($sql);
                             $no = 1;
                             if ($result && $result->num_rows > 0) {
