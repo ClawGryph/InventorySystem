@@ -19,5 +19,7 @@
     
     </main>
     <script src="../jsFiles/loadContents.js"></script>
+    <script src="../jsFiles/checkingStock.js"></script>
+    <script src="../jsFiles/editUserSales.js"></script>
 </body>
 </html>

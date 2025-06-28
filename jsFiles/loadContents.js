@@ -50,6 +50,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (normalizedUrl === 'salesReport.php' && typeof initSalesReport === 'function') {
                     initSalesReport();
                 }
+                if(normalizedUrl === 'userSales.php' && typeof initUserSales === 'function'){
+                    setTimeout(() => {
+                        initUserSales();
+                        if (typeof initStockChecker === 'function') initStockChecker();
+                        if (typeof checkLowStock === 'function') checkLowStock();
+                    }, 0);
+                }
             });
     }
 

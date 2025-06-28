@@ -1,5 +1,5 @@
 function checkLowStock() {
-    fetch('lowStockHandler.php')
+    fetch('../admin/lowStockHandler.php')
         .then(response => response.json())
         .then(data => {
             if (data.length > 0) {
