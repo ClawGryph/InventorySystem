@@ -90,7 +90,7 @@ function initSales(){
 document.getElementById("salesTable").addEventListener("click", function (e) {
     const deleteBtn = e.target.closest(".deleteBtn");
         if (deleteBtn) {
-            if (!confirm("Are you sure you want to delete this user?")) return;
+            if (!confirm("Are you sure you want to delete this Sale?")) return;
 
             const row = deleteBtn.closest("tr");
             const salesID = row.getAttribute('data-sales-id');

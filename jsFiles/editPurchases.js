@@ -98,7 +98,7 @@ function initPurchases(){
 document.getElementById("purchaseTable").addEventListener("click", function (e) {
     const deleteBtn = e.target.closest(".deleteBtn");
         if (deleteBtn) {
-            if (!confirm("Are you sure you want to delete this user?")) return;
+            if (!confirm("Are you sure you want to delete this Purchased Item?")) return;
 
             const row = deleteBtn.closest("tr");
             const itemID = row.getAttribute('data-purchase-id');

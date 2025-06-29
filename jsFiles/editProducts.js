@@ -90,7 +90,7 @@ function initProducts(){
 document.getElementById("productTable").addEventListener("click", function(e){
     const deleteBtn = e.target.closest(".deleteBtn");
         if (deleteBtn) {
-            if (!confirm("Are you sure you want to delete this user?")) return;
+            if (!confirm("Are you sure you want to delete this Product?")) return;
 
             const row = deleteBtn.closest("tr");
             const productID = row.getAttribute('data-product-id');
